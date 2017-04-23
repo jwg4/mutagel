@@ -16,7 +16,6 @@ def run_tests(test_module):
 
 class ConstantModifier(ast.NodeTransformer):
     def visit_Num(self, node):
-        print(node.__dict__)
         return ast.Num(n=node.n+3, lineno=node.lineno, col_offset=node.col_offset)
 
 
@@ -31,7 +30,6 @@ if __name__ == '__main__':
     target_filename = sys.argv[3]
     with open(target_filename) as f:
         tree = ast.parse(f.read())
-    print(ast.dump(tree))
     tree = ConstantModifier().visit(tree)
     target = compile(tree, target_filename, 'exec')
     target_module = sys.modules[target_name]
