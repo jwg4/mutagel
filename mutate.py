@@ -33,7 +33,6 @@ if __name__ == '__main__':
     tree = ConstantModifier().visit(tree)
     target = compile(tree, target_filename, 'exec')
     target_module = sys.modules[target_name]
-    #exec(target, target_module.__dict__)
-    #setattr(test_module, target_name, target_module)
+    exec(target, target_module.__dict__)
     if run_tests(test_module):
         print("The source was modified but the tests still passed.")
