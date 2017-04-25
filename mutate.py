@@ -34,6 +34,8 @@ class ReplaceVisitor(ast.NodeTransformer):
 def do_mutate(element):
     if isinstance(element, ast.Num):
         return ast.Num(n=element.n+3, lineno=element.lineno, col_offset=element.col_offset)
+    if isinstance(element, ast.Add):
+        return ast.Sub()
     else:
         return None
 

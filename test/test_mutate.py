@@ -20,7 +20,7 @@ class TestTreeCopyIterate(unittest.TestCase):
         tmi = mutate.TreeMutationIterator()
         trees = tmi.make_mutations(simple_tree)
         self.assertIsNotNone(trees)
-        self.assertEqual(len(trees), 10)
+        self.assertEqual(len(trees), 2)
 
     def test_all_different_from_original(self):
         tmi = mutate.TreeMutationIterator()
