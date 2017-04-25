@@ -25,11 +25,30 @@ class ReplaceVisitor(ast.NodeTransformer):
         self.replacement = replacement
 
     def generic_visit(self, element):
-        if ast.dump(element) == ast.dump(self.original):
+        if self.nodes_are_equal(element, self.original):
             return self.replacement
         else:
             ast.NodeTransformer.generic_visit(self, element)
             return element
+    
+    @staticmethod
+    def nodes_are_equal(a, b):
+        
+        return (
+            ast.dump(a) == ast.dump(b)
+            and
+            (
+                getattr(a, 'lineno', None) is None
+                or
+                a.lineno == b.lineno
+            )
+            and
+            (
+                getattr(a, 'col_offset', None) is None
+                or
+                a.col_offset == b.col_offset
+            )
+        )
 
 def do_mutate(element):
     if isinstance(element, ast.Num):
