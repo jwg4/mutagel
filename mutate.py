@@ -25,7 +25,7 @@ class ReplaceVisitor(ast.NodeTransformer):
         self.replacement = replacement
 
     def generic_visit(self, element):
-        if element is self.original:
+        if ast.dump(element) == ast.dump(self.original):
             return self.replacement
         else:
             ast.NodeTransformer.generic_visit(self, element)
