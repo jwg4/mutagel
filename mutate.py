@@ -35,7 +35,7 @@ def do_mutate(element):
     if isinstance(element, ast.Num):
         return ast.Num(n=element.n+3, lineno=element.lineno, col_offset=element.col_offset)
     else:
-        return element
+        return None
 
 def replace_element(tree, element, mutated):
     new_tree = copy.deepcopy(tree)
@@ -51,8 +51,9 @@ class TreeMutationIterator(object):
 
         def generic_visit(self, element):
             mutated = do_mutate(element)
-            mutated_tree = replace_element(self.tree, element, mutated)
-            self.mutated_trees.append(mutated_tree)
+            if mutated:
+                mutated_tree = replace_element(self.tree, element, mutated)
+                self.mutated_trees.append(mutated_tree)
             ast.NodeVisitor.generic_visit(self, element)
 
     def make_mutations(self, tree):
