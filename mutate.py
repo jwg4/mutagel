@@ -93,9 +93,11 @@ if __name__ == '__main__':
     target_filename = sys.argv[3]
     with open(target_filename) as f:
         tree = ast.parse(f.read())
-    tree = ConstantModifier().visit(tree)
-    target = compile(tree, target_filename, 'exec')
-    target_module = sys.modules[target_name]
-    exec(target, target_module.__dict__)
-    if run_tests(test_module):
-        print("The source was modified but the tests still passed.")
+    
+    tmi = TreeMutationIterator()
+    for mutated_tree in tmi.make_mutations(tree): 
+        target = compile(mutated_tree, target_filename, 'exec')
+        target_module = sys.modules[target_name]
+        exec(target, target_module.__dict__)
+        if run_tests(test_module):
+            print("The source was modified but the tests still passed.")
