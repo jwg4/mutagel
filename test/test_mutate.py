@@ -26,4 +26,4 @@ class TestTreeCopyIterate(unittest.TestCase):
         tmi = mutate.TreeMutationIterator()
         trees = tmi.make_mutations(simple_tree)
         for tree in trees:
-            self.assertNotEqual(tree, simple_tree)
+            self.assertNotEqual(ast.dump(tree), ast.dump(simple_tree))
