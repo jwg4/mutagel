@@ -56,7 +56,7 @@ class TreeMutationIterator(object):
             ast.NodeVisitor.generic_visit(self, element)
 
     def make_mutations(self, tree):
-        visitor = MakeMutationVisitor(tree)
+        visitor = self.MakeMutationVisitor(tree)
         visitor.visit(tree)
         return visitor.mutated_trees
 

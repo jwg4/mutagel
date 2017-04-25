@@ -12,6 +12,12 @@ class TestTreeCopyAndModify(unittest.TestCase):
         pass
 
 class TestTreeCopyIterate(unittest.TestCase):
-    def test_basic_iteration(self):
+    def test_basic_construction(self):
         tmi = mutate.TreeMutationIterator()
         self.assertIsNotNone(tmi)
+
+    def test_basic_iteration(self):
+        tmi = mutate.TreeMutationIterator()
+        trees = tmi.make_mutations(simple_tree)
+        self.assertIsNotNone(trees)
+        self.assertEqual(len(trees), 10)
