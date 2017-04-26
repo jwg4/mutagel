@@ -3,11 +3,13 @@ language: python
 python:
   - '3.6'
 
-matrix:
-  script:
-    - flake8 .
-    - python -m unittest discover
-    - python mutate.py test_example example example.py
+env:
+  - TASK=flake8
+  - TASK=test
+  - TASK=trial
+
+script:
+  - make $TASK
 
 notifications:
   email: false
